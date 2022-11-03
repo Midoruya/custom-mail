@@ -1,6 +1,6 @@
 import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
 import {MailService} from "./mail.service";
-import {Mail} from "./mail.entity";
+import {Mail, MailCreationAttributes} from "./mail.entity";
 import {DeleteResult} from "typeorm";
 
 @Controller('mail')
@@ -13,7 +13,6 @@ export class MailController {
 
     @Get('/')
     async getAll(): Promise<Array<Mail>> {
-        // SELECT * FROM mail
         return await this.MailService.getAll();
     }
 
@@ -21,13 +20,12 @@ export class MailController {
     async getOneByIndex(
         @Param('id') id: number
     ): Promise<Mail> {
-        // SELECT * FROM mail where id = { id }
         return await this.MailService.getByIndex(id);
     }
 
     @Post('/create')
     async createMessage(
-        @Body() mail: Mail
+        @Body() mail: MailCreationAttributes
     ): Promise<Mail> {
         return await this.MailService.createMail(mail);
     }
