@@ -1,8 +1,19 @@
 <template>
   <q-layout view="LHh LpR fff">
-    <q-header class="" elevated>
-        <q-toolbar-title>Custom Mail</q-toolbar-title>
-        <div>Custom Mail application version v{{ $q.version }}</div>
+    <q-header style="height: 75px" class="bg-transparent fa-border-none">
+      <q-input class="q-pa-sm" style="height: 30px;" outlined rounded type="text" clear-icon="reload" v-model="inputData">
+        <template v-slot:append>
+          <q-icon
+            v-if="inputData.length > 0"
+            name="close"
+            @click="inputData = ''"
+            class="cursor-pointer"
+          />
+        </template>
+        <template v-slot:prepend>
+          <q-icon name="search"/>
+        </template>
+      </q-input>
     </q-header>
 
     <q-drawer
@@ -12,8 +23,9 @@
       :mini="collapseDriverState"
       :behavior="'desktop'"
       show-if-above
+      elevated
     >
-      <q-list>
+      <q-list class="column flex justify-center full-height">
         <q-btn
           @click="changeCollapseDriverState()"
           class="full-width"
@@ -22,7 +34,7 @@
           {{ collapseDriverState === false ? '<<' : '>>' }}
         </q-btn>
 
-        <EssentialLink
+        <NavigationButton
           v-for="link in driverData"
           :key="link.title"
           :caption="link.description"
@@ -41,17 +53,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
-import NavigationPaneData from "src/data/NavigationPaneData";
+import NavigationPaneData from 'src/data/NavigationPaneData';
+import NavigationButton from "components/NavigationButton.vue";
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    NavigationButton,
   },
   data() {
     return {
+      inputData: "",
       showDriver: true,
       driverData: NavigationPaneData,
       collapseDriverState: false,

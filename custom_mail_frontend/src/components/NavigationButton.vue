@@ -3,7 +3,7 @@
     clickable
     tag="a"
     target="_blank"
-    :href="link"
+    :to="link"
   >
     <q-item-section
       v-if="icon"
@@ -13,8 +13,8 @@
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label class="text-subtitle1 text-weight-regular">{{ title }}</q-item-label>
+      <q-item-label class="text-caption" caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -23,7 +23,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: 'NavigationButton',
   props: {
     title: {
       type: String,
