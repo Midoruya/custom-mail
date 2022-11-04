@@ -18,7 +18,11 @@ export class MailService {
 
     async getByIndex(index: number): Promise<Mail> {
         // SELECT * FROM mail where id = { id }
-        return await this.MailRepo.findOneBy({id: index});
+        return await this.MailRepo.findOne({
+            where : {
+                id: index
+            }
+        });
     }
 
     async createMail(content: MailCreationAttributes): Promise<Mail> {

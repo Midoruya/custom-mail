@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import {MailCreationAttributes} from "../src/mail/mail.entity";
+import {Mail, MailCreationAttributes} from "../src/mail/mail.entity";
 
 
 describe('MailController (e2e)', () => {
@@ -32,11 +32,12 @@ describe('MailController (e2e)', () => {
             .send(testData)
             .expect(201)
             .expect(res => {
-                expect(res.body.sender).toEqual(testData.sender);
-                expect(res.body.receiver).toEqual(testData.receiver);
-                expect(res.body.title).toEqual(testData.title);
-                expect(res.body.message).toEqual(testData.message);
-                testingMailIndex = res.body.id;
+                const resBody = res.body as Mail;
+                expect(resBody.sender).toEqual(testData.sender);
+                expect(resBody.receiver).toEqual(testData.receiver);
+                expect(resBody.title).toEqual(testData.title);
+                expect(resBody.message).toEqual(testData.message);
+                testingMailIndex = resBody.id;
             });
     });
     it('/mail/:id (GET)', () => {
@@ -44,7 +45,8 @@ describe('MailController (e2e)', () => {
             .get(`/mail/${testingMailIndex}`)
             .expect(200)
             .expect(res => {
-                expect(res.body.id).toEqual(testingMailIndex);
+                let resBody = res.body as Mail;
+                expect(resBody.id).toEqual(testingMailIndex);
             });
     });
     it('/mail (DELETE)', () => {

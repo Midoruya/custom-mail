@@ -14,5 +14,9 @@ describe("MailController", () => {
 
         mailController = app.get<MailController>(MailController);
     });
-
+    describe("work with database", () => {
+        it("should return all mails", () => {
+            expect(mailController.getAll()).toBeDefined();
+        });
+    });
 });
