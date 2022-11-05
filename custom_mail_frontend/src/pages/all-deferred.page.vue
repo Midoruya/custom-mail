@@ -2,8 +2,8 @@
   <q-page>
     <q-list>
       <CollapsesMessage
-        v-for="(message, index) in sentStore.sent"
-        :key="message.message"
+        v-for="(message, index) in deferredStore.deferred"
+        :key="index"
         :index="index"
         :title="message.title"
         :mail-sender="message.emailSender"
@@ -15,18 +15,17 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { useSentStore} from '../stores/sent.store';
-import CollapsesMessage from '../components/CollapsesMessage.vue';
+import { useDeferredStore } from '../stores/defered.store';
+import CollapsesMessage from '../components/collapses-message.componens.vue';
 
 export default defineComponent({
-  name: 'AllSentPage',
+  name: 'AllDeferredPage',
   components: { CollapsesMessage },
   setup() {
-    const sentStore = useSentStore();
-    return { sentStore };
+    const deferredStore = useDeferredStore();
+    return { deferredStore };
   },
 });
-
 </script>
 
 <style scoped>

@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import {useInboxStore} from 'stores/inbox.store';
-import CollapsesMessage from 'components/CollapsesMessage.vue';
+import CollapsesMessage from 'components/collapses-message.componens.vue';
 
 export default  defineComponent({
   name: 'AllMessagePage',

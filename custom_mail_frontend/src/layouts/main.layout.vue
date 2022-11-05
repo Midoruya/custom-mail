@@ -42,7 +42,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import NavigationPaneData from 'src/data/navigation-panel.data';
-import NavigationButton from 'components/NavigationButton.vue';
+import NavigationButton from 'components/navigation-button.componens.vue';
 import {useInboxStore} from 'stores/inbox.store';
 
 export default defineComponent({
