@@ -1,53 +1,52 @@
 <template>
   <q-page>
     <q-list>
-      <q-item v-for="(element,index) in testData" :key="element.title" clickable class="q-my-xs q-mx-md rounded-borders bg-grey-3" v-ripple>
-        <q-item-section>
-          <q-item-label>{{ element.title }}</q-item-label>
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>{{ element.message }}</q-item-label>
-        </q-item-section>
-        <q-item-section avatar>
-          <q-icon @click="removeMessage(index)" name="delete" />
-        </q-item-section>
-      </q-item>
+      <q-input class="q-pa-sm" outlined standout  borderless rounded type="text" v-model="inputData" clear-icon="reload">
+        <template v-slot:append>
+          <q-icon
+            name="close"
+            class="cursor-pointer"
+            v-if="inputData !== ''"
+            @click="inputData = ''"
+          />
+        </template>
+        <template v-slot:prepend>
+          <q-icon name="search"/>
+        </template>
+      </q-input>
+      <CollapsesMessage
+        v-for="(message, index) in inboxStore.searchInbox"
+        :key="index"
+        :index="index"
+        :title="message.title"
+        :mail-sender="message.emailSender"
+      />
     </q-list>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import {useInboxStore} from 'stores/inbox.store';
+import CollapsesMessage from 'components/CollapsesMessage.vue';
 
 export default  defineComponent({
-  name: "AllMessagePage",
+  name: 'AllMessagePage',
+  components: {CollapsesMessage},
+  watch: {
+    inputData() {
+      this.inboxStore.searchBy = this.inputData;
+    },
+  },
+  setup() {
+    const inboxStore = useInboxStore();
+    inboxStore.fetchInbox();
+    return {inboxStore}
+  },
   data() {
     return {
-      testData: [
-        // generate test dataset use interface { title: string, message: string }
-        {
-          title: "Title 1",
-          message: "Message 1",
-        },
-        {
-          title: "Title 2",
-          message: "Message 2",
-        },
-        {
-          title: "Title 3",
-          message: "Message 3",
-        },
-        {
-          title: "Title 4",
-          message: "Message 4",
-        }
-      ] as { title: string; message: string }[],
+      inputData: '',
     };
-  },
-  methods: {
-    removeMessage(index: number): void {
-      this.testData.splice(index, 1);
-    },
   },
 });
 </script>

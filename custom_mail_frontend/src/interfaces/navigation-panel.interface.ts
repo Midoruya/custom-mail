@@ -1,4 +1,4 @@
-export interface NavigationPaneInterface {
+export interface NavigationPanelInterface {
   title: string;
   description: string;
   icon: string;

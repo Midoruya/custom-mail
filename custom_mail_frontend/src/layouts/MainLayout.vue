@@ -1,21 +1,5 @@
 <template>
-  <q-layout view="LHh LpR fff">
-    <q-header style="height: 75px" class="bg-transparent fa-border-none">
-      <q-input class="q-pa-sm" style="height: 30px;" outlined rounded type="text" clear-icon="reload" v-model="inputData">
-        <template v-slot:append>
-          <q-icon
-            v-if="inputData.length > 0"
-            name="close"
-            @click="inputData = ''"
-            class="cursor-pointer"
-          />
-        </template>
-        <template v-slot:prepend>
-          <q-icon name="search"/>
-        </template>
-      </q-input>
-    </q-header>
-
+  <q-layout view="lhh lpr fff">
     <q-drawer
       @mouseover="changeCollapseDriverState(true,false)"
       @mouseleave="changeCollapseDriverState(true,true)"
@@ -48,23 +32,30 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer>
+
+    </q-footer>
   </q-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import NavigationPaneData from 'src/data/NavigationPaneData';
-import NavigationButton from "components/NavigationButton.vue";
+import NavigationPaneData from 'src/data/navigation-panel.data';
+import NavigationButton from 'components/NavigationButton.vue';
+import {useInboxStore} from 'stores/inbox.store';
 
 export default defineComponent({
   name: 'MainLayout',
-
+  setup () {
+    const inboxStore = useInboxStore();
+    return {inboxStore};
+  },
   components: {
     NavigationButton,
   },
   data() {
     return {
-      inputData: "",
       showDriver: true,
       driverData: NavigationPaneData,
       collapseDriverState: false,

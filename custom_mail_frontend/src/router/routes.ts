@@ -5,7 +5,11 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/AllMessagePage.vue') },
+      { path: '/', component: () => import('pages/AllMessagePage.vue') },
+      { path: '/inbox', component: () => import('pages/AllMessagePage.vue') },
+      { path: '/sent', component: () => import('pages/AllSentPage.vue') },
+      { path: '/deferred', component: () => import('pages/AllDeferredPage.vue') },
+      { path: '/new', component: () => import('pages/CreateNewMessage.vue') },
     ],
   },
   {
