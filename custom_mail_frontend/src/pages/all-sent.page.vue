@@ -6,7 +6,7 @@
         :key="message.message"
         :index="index"
         :title="message.title"
-        :mail-sender="message.emailSender"
+        :mail-sender="message.sender"
         :is_deferred="true"
       />
     </q-list>

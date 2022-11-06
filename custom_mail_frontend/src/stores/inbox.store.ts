@@ -1,41 +1,32 @@
 import { defineStore } from 'pinia';
-import {InboxInterface} from 'src/interfaces/inbox.interface';
+import {MailInterface} from 'src/interfaces/mail.interface';
+import backend from "src/backend";
 
 export const useInboxStore = defineStore({
   id:'inboxStore',
   state: () => ({
-    inbox: [] as Array<InboxInterface>,
+    inbox: [] as Array<MailInterface>,
     searchBy: '' as string,
   }),
   getters: {
-    getInbox: ({ inbox }: {inbox: Array<InboxInterface>}): Array<InboxInterface> => inbox,
-    searchInbox: ({ inbox, searchBy }: {inbox: Array<InboxInterface>, searchBy: string}): Array<InboxInterface> => {
+    getInbox: ({ inbox }: {inbox: Array<MailInterface>}): Array<MailInterface> => inbox,
+    searchInbox: ({ inbox, searchBy }: {inbox: Array<MailInterface>, searchBy: string}): Array<MailInterface> => {
       console.log('searchBy: ', searchBy);
-      return inbox.filter((item: InboxInterface) => {
+      return inbox.filter((item: MailInterface) => {
         return item.title.toLowerCase().includes(searchBy.toLowerCase());
       });
     }
   },
   actions: {
     removeInboxByIndex(index: number): void {
-      console.log(index)
-      this.inbox.splice(index, 1)
+      backend.mail.removeMailByIndex(this.inbox[index].id)
+        .then(_ => this.fetchInbox())
+        .catch(reason => alert(reason))
     },
     fetchInbox(): void {
-      const newInbox = [] as Array<InboxInterface>
-      newInbox.push({
-        emailSender: 'testsender@mail.ru',
-        emailReceiver: 'testreceiver@mail.ru',
-        title: 'new push message',
-        message: 'this is new push message',
-      });
-      newInbox.push({
-        emailSender: 'testsender@mail.ru',
-        emailReceiver: 'testreceiver@mail.ru',
-        title: 'new push message 321313',
-        message: 'this is new push message 321313',
-      })
-      this.inbox = newInbox;
+      backend.mail.getAllMessage()
+        .then(data => this.inbox = data)
+        .catch(reason => alert(reason))
     }
   },
 });

@@ -19,7 +19,7 @@
         :key="index"
         :index="index"
         :title="message.title"
-        :mail-sender="message.emailSender"
+        :mail-sender="message.sender"
       />
     </q-list>
   </q-page>

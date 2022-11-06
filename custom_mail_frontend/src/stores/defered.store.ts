@@ -1,21 +1,28 @@
 import {defineStore} from 'pinia';
-import {InboxInterface} from 'src/interfaces/inbox.interface';
+import { CreateMailInterface } from 'src/interfaces/mail.interface';
+import backend from "src/backend";
 
 export const useDeferredStore = defineStore({
   id: 'deferredStore',
   state: () => ({
-    deferred: [] as Array<InboxInterface>,
+    deferred: [] as Array<CreateMailInterface>,
   }),
   getters: {
-    getByIndex: ({ deferred }: {deferred: Array<InboxInterface>}) => (index: number): InboxInterface => deferred[index],
+    getByIndex: ({ deferred }: {deferred: Array<CreateMailInterface>}) => (index: number): CreateMailInterface => deferred[index],
   },
   actions: {
-    pushDeferred(deferred: InboxInterface): void {
+    pushDeferred(deferred: CreateMailInterface): void {
       console.log('pushDeferred: ', deferred);
       this.deferred.push(deferred);
+    },
+    sendDeferred(index:number): void {
+      backend.mail.sendNewMessage(this.deferred[index])
+        .then(_ => this.removeDeferredByIndex(index))
+        .catch(reason => alert(reason))
     },
     removeDeferredByIndex(index: number): void {
       this.deferred.splice(index, 1)
     },
+
   },
 });

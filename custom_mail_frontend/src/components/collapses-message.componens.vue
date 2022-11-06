@@ -52,9 +52,14 @@ export default defineComponent({
     }
   },
   methods: {
+    removeMessage(index: number) {
+      if (this.is_deferred)
+        this.deferredStore.removeDeferredByIndex(index);
+      else
+        this.inboxStore.removeInboxByIndex(index);
+    },
     pushToSent() {
-      this.sentStore.pushSent(this.deferredStore.getByIndex(this.index));
-      this.deferredStore.removeDeferredByIndex(this.index);
+      this.deferredStore.sendDeferred(this.index);
     },
   }
 });

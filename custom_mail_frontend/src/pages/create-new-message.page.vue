@@ -11,7 +11,7 @@
         class="text-h6"
         style="margin: 0"
       >Создань новое письмо</h6>
-      <q-form type="submit">
+      <q-form v-on:submit="sendNewMail()">
         <q-input type="email" clear-icon="close" placeholder="кому" v-model="emailSender">
           <template v-slot:prepend>
             <q-icon name="email" />
@@ -40,7 +40,7 @@
         <div class="q-mt-md full-width row  justify-between items-center content-center">
           <div>
             <q-btn @click="sendToDeferred()" style="width: 200px" color="primary" label="В отложеные" />
-            <q-btn style="width: 200px" class="q-ml-sm" color="primary" label="Отправить" />
+            <q-btn style="width: 200px" type="submit" class="q-ml-sm" color="primary" label="Отправить" />
           </div>
           <q-btn style="width: 200px" color="primary" label="На главную"/>
         </div>
@@ -52,6 +52,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { useDeferredStore } from '../stores/defered.store';
+import backend from "../backend";
 
 export default defineComponent({
   name: 'CreateNewMessage',
@@ -71,12 +72,20 @@ export default defineComponent({
     sendToDeferred() {
       console.log(this.emailSender);
       this.deferredStore.pushDeferred({
-        emailSender: this.emailSender,
-        emailRecipient: this.emailRecipient,
-        messageTitle: this.messageTitle,
+        sender: this.emailSender,
+        receiver: this.emailRecipient,
+        title: this.messageTitle,
         message: this.message,
       });
     },
+    sendNewMail() {
+      backend.mail.sendNewMessage({
+        sender: this.emailSender,
+        receiver: this.emailRecipient,
+        title: this.messageTitle,
+        message: this.message,
+      })
+    }
   }
 });
 </script>
