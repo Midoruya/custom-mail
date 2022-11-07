@@ -9,6 +9,7 @@ export const useInboxStore = defineStore({
     searchBy: '' as string,
   }),
   getters: {
+    // getById: ({inbox}) => (id: number): MailInterface => inbox[id],
     getInbox: ({
       inbox,
     }: {

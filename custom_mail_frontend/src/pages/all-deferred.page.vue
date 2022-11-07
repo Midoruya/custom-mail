@@ -7,7 +7,7 @@
         :index="index"
         :title="message.title"
         :mail-sender="message.sender"
-        :is_deferred="true"
+        :is-deferred="true"
       />
     </q-list>
   </q-page>

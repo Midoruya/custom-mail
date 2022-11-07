@@ -8,9 +8,9 @@
       style="max-width: 900px"
     >
       <h6 class="text-h6" style="margin: 0">Создань новое письмо</h6>
-      <q-form @v-on:submit="sendNewMail()">
+      <q-form>
         <q-input
-          v-model="emailSender"
+          v-model="newMessageData.sender"
           type="email"
           clear-icon="close"
           placeholder="кому"
@@ -20,14 +20,14 @@
           </template>
           <template #append>
             <q-icon
-              v-if="emailSender !== ''"
+              v-if="newMessageData.sender !== ''"
               name="close"
-              @click="emailSender = ''"
+              @click="newMessageData.sender = ''"
             />
           </template>
         </q-input>
         <q-input
-          v-model="emailRecipient"
+          v-model="newMessageData.receiver"
           type="email"
           clear-icon="close"
           placeholder="от кого"
@@ -38,14 +38,14 @@
           </template>
           <template #append>
             <q-icon
-              v-if="emailRecipient !== ''"
+              v-if="newMessageData.receiver !== ''"
               name="close"
-              @click="emailRecipient = ''"
+              @click="newMessageData.receiver = ''"
             />
           </template>
         </q-input>
         <q-input
-          v-model="messageTitle"
+          v-model="newMessageData.title"
           type="text"
           clear-icon="close"
           placeholder="тема сообшения"
@@ -56,13 +56,13 @@
           </template>
           <template #append>
             <q-icon
-              v-if="emailRecipient !== ''"
+              v-if="newMessageData.title !== ''"
               name="close"
-              @click="emailRecipient = ''"
+              @click="newMessageData.title = ''"
             />
           </template>
         </q-input>
-        <q-editor v-model="message"></q-editor>
+        <q-editor v-model="newMessageData.message"></q-editor>
         <div
           class="q-mt-md full-width row justify-between items-center content-center"
         >
@@ -79,6 +79,7 @@
               class="q-ml-sm"
               color="primary"
               label="Отправить"
+              @click="sendNewMail()"
             />
           </div>
           <q-btn style="width: 200px" color="primary" label="На главную" />
@@ -88,43 +89,29 @@
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-import { useDeferredStore } from '../stores/defered.store';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
+import { CreateMailInterface } from '../interfaces/mail.interface';
 
 export default defineComponent({
   name: 'CreateNewMessage',
   setup() {
     const deferredStore = useDeferredStore();
-    return { deferredStore };
-  },
-  data() {
-    return {
-      emailSender: '',
-      emailRecipient: '',
-      messageTitle: '',
+    const newMessageData = ref({
+      sender: '',
+      receiver: '',
+      title: '',
       message: '',
-    };
-  },
-  methods: {
-    sendToDeferred() {
-      console.log(this.emailSender);
-      this.deferredStore.pushDeferred({
-        sender: this.emailSender,
-        receiver: this.emailRecipient,
-        title: this.messageTitle,
-        message: this.message,
-      });
-    },
-    sendNewMail() {
-      backend.mail.sendNewMessage({
-        sender: this.emailSender,
-        receiver: this.emailRecipient,
-        title: this.messageTitle,
-        message: this.message,
-      });
-    },
+    } as CreateMailInterface);
+
+    const sendToDeferred = () =>
+      deferredStore.pushDeferred(newMessageData.value);
+
+    const sendNewMail = () => backend.mail.sendNewMessage(newMessageData.value);
+
+    return { deferredStore, newMessageData, sendToDeferred, sendNewMail };
   },
 });
 </script>

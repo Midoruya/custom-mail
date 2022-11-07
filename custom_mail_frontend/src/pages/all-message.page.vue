@@ -35,27 +35,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { useInboxStore } from 'stores/inbox.store';
 import CollapsesMessage from 'components/collapses-message.componens.vue';
 
 export default defineComponent({
   name: 'AllMessagePage',
   components: { CollapsesMessage },
-  watch: {
-    inputData() {
-      this.inboxStore.searchBy = this.inputData;
-    },
-  },
   setup() {
+    const inputData = ref('');
     const inboxStore = useInboxStore();
     inboxStore.fetchInbox();
-    return { inboxStore };
-  },
-  data() {
-    return {
-      inputData: '',
-    };
+    watch(
+      inputData,
+      (inputData) => (inboxStore.searchBy = inputData)
+    );
+    return { inboxStore, inputData };
   },
 });
 </script>
