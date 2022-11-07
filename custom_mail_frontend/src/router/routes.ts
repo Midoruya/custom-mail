@@ -8,8 +8,14 @@ const routes: RouteRecordRaw[] = [
       { path: '/', component: () => import('pages/all-message.page.vue') },
       { path: '/inbox', component: () => import('pages/all-message.page.vue') },
       { path: '/sent', component: () => import('pages/all-sent.page.vue') },
-      { path: '/deferred', component: () => import('pages/all-deferred.page.vue') },
-      { path: '/new', component: () => import('pages/create-new-message.page.vue') },
+      {
+        path: '/deferred',
+        component: () => import('pages/all-deferred.page.vue'),
+      },
+      {
+        path: '/new',
+        component: () => import('pages/create-new-message.page.vue'),
+      },
     ],
   },
   // Always leave this as last one,

@@ -1,19 +1,19 @@
 <template>
   <q-layout view="lhh lpr fff">
     <q-drawer
-      @mouseover="changeCollapseDriverState(true,false)"
-      @mouseleave="changeCollapseDriverState(true,true)"
       v-model="showDriver"
       :mini="collapseDriverState"
       :behavior="'desktop'"
       show-if-above
       elevated
+      @mouseover="changeCollapseDriverState(true, false)"
+      @mouseleave="changeCollapseDriverState(true, true)"
     >
       <q-list class="column flex justify-center full-height">
         <q-btn
-          @click="changeCollapseDriverState()"
           class="full-width"
           style="height: 50px"
+          @click="changeCollapseDriverState()"
         >
           {{ collapseDriverState === false ? '<<' : '>>' }}
         </q-btn>
@@ -33,9 +33,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer>
-
-    </q-footer>
+    <q-footer> </q-footer>
   </q-layout>
 </template>
 
@@ -43,13 +41,13 @@
 import { defineComponent } from 'vue';
 import NavigationPaneData from 'src/data/navigation-panel.data';
 import NavigationButton from 'components/navigation-button.componens.vue';
-import {useInboxStore} from 'stores/inbox.store';
+import { useInboxStore } from 'stores/inbox.store';
 
 export default defineComponent({
   name: 'MainLayout',
-  setup () {
+  setup() {
     const inboxStore = useInboxStore();
-    return {inboxStore};
+    return { inboxStore };
   },
   components: {
     NavigationButton,
@@ -59,15 +57,16 @@ export default defineComponent({
       showDriver: true,
       driverData: NavigationPaneData,
       collapseDriverState: false,
-    }
+    };
   },
   methods: {
-    changeCollapseDriverState(useCustomState = false, customState = false): void {
-      if (!useCustomState)
-        this.collapseDriverState = !this.collapseDriverState;
-      else
-        this.collapseDriverState = customState;
-    }
+    changeCollapseDriverState(
+      useCustomState = false,
+      customState = false
+    ): void {
+      if (!useCustomState) this.collapseDriverState = !this.collapseDriverState;
+      else this.collapseDriverState = customState;
+    },
   },
 });
 </script>

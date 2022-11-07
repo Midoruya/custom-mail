@@ -5,25 +5,24 @@ export default [
     title: 'Inbox',
     description: 'Входящие',
     icon: 'inbox',
-    moveTo: '/inbox'
+    moveTo: '/inbox',
   },
   {
     title: 'deferred',
     description: 'Отложенные',
     icon: 'timer',
-    moveTo: '/deferred'
+    moveTo: '/deferred',
   },
   {
     title: 'New message',
     description: 'Новое сообщение',
     icon: 'send',
-    moveTo: '/new'
+    moveTo: '/new',
   },
   {
     title: 'Sent',
     description: 'Отправленные',
     icon: 'history',
-    moveTo: '/sent'
+    moveTo: '/sent',
   },
-
 ] as Array<NavigationPanelInterface>;

@@ -7,42 +7,81 @@
       class="rounded-borders col rounded-borders bg-grey-3 q-pa-lg"
       style="max-width: 900px"
     >
-      <h6
-        class="text-h6"
-        style="margin: 0"
-      >Создань новое письмо</h6>
-      <q-form v-on:submit="sendNewMail()">
-        <q-input type="email" clear-icon="close" placeholder="кому" v-model="emailSender">
-          <template v-slot:prepend>
+      <h6 class="text-h6" style="margin: 0">Создань новое письмо</h6>
+      <q-form @v-on:submit="sendNewMail()">
+        <q-input
+          v-model="emailSender"
+          type="email"
+          clear-icon="close"
+          placeholder="кому"
+        >
+          <template #prepend>
             <q-icon name="email" />
           </template>
-          <template v-slot:append>
-            <q-icon v-if="emailSender !== ''" name="close" @click="emailSender = ''" />
+          <template #append>
+            <q-icon
+              v-if="emailSender !== ''"
+              name="close"
+              @click="emailSender = ''"
+            />
           </template>
         </q-input>
-        <q-input type="email" clear-icon="close" placeholder="от кого" class="q-my-sm" v-model="emailRecipient">
-          <template v-slot:prepend>
+        <q-input
+          v-model="emailRecipient"
+          type="email"
+          clear-icon="close"
+          placeholder="от кого"
+          class="q-my-sm"
+        >
+          <template #prepend>
             <q-icon name="email" />
           </template>
-          <template v-slot:append>
-            <q-icon v-if="emailRecipient !== ''" name="close" @click="emailRecipient = ''" />
+          <template #append>
+            <q-icon
+              v-if="emailRecipient !== ''"
+              name="close"
+              @click="emailRecipient = ''"
+            />
           </template>
         </q-input>
-        <q-input type="text" clear-icon="close" placeholder="тема сообшения" class="q-my-sm" v-model="messageTitle">
-          <template v-slot:prepend>
+        <q-input
+          v-model="messageTitle"
+          type="text"
+          clear-icon="close"
+          placeholder="тема сообшения"
+          class="q-my-sm"
+        >
+          <template #prepend>
             <q-icon name="title" />
           </template>
-          <template v-slot:append>
-            <q-icon v-if="emailRecipient !== ''" name="close" @click="emailRecipient = ''" />
+          <template #append>
+            <q-icon
+              v-if="emailRecipient !== ''"
+              name="close"
+              @click="emailRecipient = ''"
+            />
           </template>
         </q-input>
         <q-editor v-model="message"></q-editor>
-        <div class="q-mt-md full-width row  justify-between items-center content-center">
+        <div
+          class="q-mt-md full-width row justify-between items-center content-center"
+        >
           <div>
-            <q-btn @click="sendToDeferred()" style="width: 200px" color="primary" label="В отложеные" />
-            <q-btn style="width: 200px" type="submit" class="q-ml-sm" color="primary" label="Отправить" />
+            <q-btn
+              style="width: 200px"
+              color="primary"
+              label="В отложеные"
+              @click="sendToDeferred()"
+            />
+            <q-btn
+              style="width: 200px"
+              type="submit"
+              class="q-ml-sm"
+              color="primary"
+              label="Отправить"
+            />
           </div>
-          <q-btn style="width: 200px" color="primary" label="На главную"/>
+          <q-btn style="width: 200px" color="primary" label="На главную" />
         </div>
       </q-form>
     </div>
@@ -52,12 +91,12 @@
 <script>
 import { defineComponent } from 'vue';
 import { useDeferredStore } from '../stores/defered.store';
-import backend from "../backend";
+import backend from '../backend';
 
 export default defineComponent({
   name: 'CreateNewMessage',
   setup() {
-    const deferredStore =  useDeferredStore();
+    const deferredStore = useDeferredStore();
     return { deferredStore };
   },
   data() {
@@ -84,12 +123,10 @@ export default defineComponent({
         receiver: this.emailRecipient,
         title: this.messageTitle,
         message: this.message,
-      })
-    }
-  }
+      });
+    },
+  },
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

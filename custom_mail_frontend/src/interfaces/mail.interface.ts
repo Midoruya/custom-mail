@@ -3,12 +3,12 @@ export interface MailInterface {
   sender: string;
   receiver: string;
   title: string;
-  message: string
+  message: string;
 }
 
 export interface CreateMailInterface {
   sender: string;
   receiver: string;
   title: string;
-  message: string
+  message: string;
 }

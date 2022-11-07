@@ -1,6 +1,6 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 import { CreateMailInterface } from 'src/interfaces/mail.interface';
-import backend from "src/backend";
+import backend from 'src/backend';
 
 export const useDeferredStore = defineStore({
   id: 'deferredStore',
@@ -8,21 +8,24 @@ export const useDeferredStore = defineStore({
     deferred: [] as Array<CreateMailInterface>,
   }),
   getters: {
-    getByIndex: ({ deferred }: {deferred: Array<CreateMailInterface>}) => (index: number): CreateMailInterface => deferred[index],
+    getByIndex:
+      ({ deferred }: { deferred: Array<CreateMailInterface> }) =>
+      (index: number): CreateMailInterface =>
+        deferred[index],
   },
   actions: {
     pushDeferred(deferred: CreateMailInterface): void {
       console.log('pushDeferred: ', deferred);
       this.deferred.push(deferred);
     },
-    sendDeferred(index:number): void {
-      backend.mail.sendNewMessage(this.deferred[index])
-        .then(_ => this.removeDeferredByIndex(index))
-        .catch(reason => alert(reason))
+    sendDeferred(index: number): void {
+      backend.mail
+        .sendNewMessage(this.deferred[index])
+        .then((_) => this.removeDeferredByIndex(index))
+        .catch((reason) => alert(reason));
     },
     removeDeferredByIndex(index: number): void {
-      this.deferred.splice(index, 1)
+      this.deferred.splice(index, 1);
     },
-
   },
 });

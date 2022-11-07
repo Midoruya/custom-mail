@@ -6,11 +6,10 @@ export const useSentStore = defineStore({
   state: () => ({
     sent: [] as Array<MailInterface>,
   }),
-  getters: {
-  },
+  getters: {},
   actions: {
     pushSent(sent: MailInterface): void {
       this.sent.push(sent);
-    }
-  }
+    },
+  },
 });

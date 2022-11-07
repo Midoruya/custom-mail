@@ -1,17 +1,26 @@
 <template>
   <q-page>
     <q-list>
-      <q-input class="q-pa-sm" outlined standout  borderless rounded type="text" v-model="inputData" clear-icon="reload">
-        <template v-slot:append>
+      <q-input
+        v-model="inputData"
+        class="q-pa-sm"
+        outlined
+        standout
+        borderless
+        rounded
+        type="text"
+        clear-icon="reload"
+      >
+        <template #append>
           <q-icon
+            v-if="inputData !== ''"
             name="close"
             class="cursor-pointer"
-            v-if="inputData !== ''"
             @click="inputData = ''"
           />
         </template>
-        <template v-slot:prepend>
-          <q-icon name="search"/>
+        <template #prepend>
+          <q-icon name="search" />
         </template>
       </q-input>
       <CollapsesMessage
@@ -27,12 +36,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import {useInboxStore} from 'stores/inbox.store';
+import { useInboxStore } from 'stores/inbox.store';
 import CollapsesMessage from 'components/collapses-message.componens.vue';
 
-export default  defineComponent({
+export default defineComponent({
   name: 'AllMessagePage',
-  components: {CollapsesMessage},
+  components: { CollapsesMessage },
   watch: {
     inputData() {
       this.inboxStore.searchBy = this.inputData;
@@ -41,7 +50,7 @@ export default  defineComponent({
   setup() {
     const inboxStore = useInboxStore();
     inboxStore.fetchInbox();
-    return {inboxStore}
+    return { inboxStore };
   },
   data() {
     return {
@@ -51,6 +60,4 @@ export default  defineComponent({
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

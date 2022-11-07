@@ -15,7 +15,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { useSentStore} from '../stores/sent.store';
+import { useSentStore } from '../stores/sent.store';
 import CollapsesMessage from '../components/collapses-message.componens.vue';
 
 export default defineComponent({
@@ -26,9 +26,6 @@ export default defineComponent({
     return { sentStore };
   },
 });
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

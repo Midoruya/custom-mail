@@ -1,22 +1,18 @@
 <template>
-  <q-item
-    class="q-my-xs q-mx-md rounded-borders bg-grey-3"
-    clickable
-    v-ripple>
+  <q-item v-ripple class="q-my-xs q-mx-md rounded-borders bg-grey-3" clickable>
     <q-item-section style="max-width: 300px">
       <q-item-label lines="1">{{ mailSender }}</q-item-label>
     </q-item-section>
     <q-item-section>
-      <q-item-label  lines="1">{{ title }}</q-item-label>
+      <q-item-label lines="1">{{ title }}</q-item-label>
     </q-item-section>
     <q-item-section avatar>
-      <q-icon @click="inboxStore.removeInboxByIndex(index)" name="delete" />
+      <q-icon name="delete" @click="inboxStore.removeInboxByIndex(index)" />
     </q-item-section>
     <q-item-section v-if="is_deferred" avatar>
-      <q-icon @click="pushToSent()" name="send" />
+      <q-icon name="send" @click="pushToSent()" />
     </q-item-section>
   </q-item>
-
 </template>
 
 <script lang="ts">
@@ -46,26 +42,21 @@ export default defineComponent({
       type: String,
       default: 'Message',
     },
-    is_deferred: {
+    isDeferred: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   methods: {
     removeMessage(index: number) {
-      if (this.is_deferred)
-        this.deferredStore.removeDeferredByIndex(index);
-      else
-        this.inboxStore.removeInboxByIndex(index);
+      if (this.isDeferred) this.deferredStore.removeDeferredByIndex(index);
+      else this.inboxStore.removeInboxByIndex(index);
     },
     pushToSent() {
       this.deferredStore.sendDeferred(this.index);
     },
-  }
+  },
 });
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
