@@ -2,7 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import {Mail, MailCreationAttributes} from "../src/mail/mail.entity";
+import {Mail} from "../src/mail/mail.entity";
+import {MailDto} from "../src/mail/mail.dto";
 
 
 describe('MailController (e2e)', () => {
@@ -23,15 +24,16 @@ describe('MailController (e2e)', () => {
     });
     it('/mail (POST)', () => {
         let testData = {
-            sender: "unitTest.mail.ru",
-            receiver: "unitTestReceiver.mail.ru",
+            sender: "unitTestReceiver@mail.ru",
+            receiver: "unitTestReceiver@mail.ru",
             title: "unitTestTitle",
             message: "unitTestMessage",
-        } as MailCreationAttributes;
+        } as MailDto;
         return request(app.getHttpServer()).post('/mail/create')
             .send(testData)
             .expect(201)
             .expect(res => {
+                console.log(res.body);
                 const resBody = res.body as Mail;
                 expect(resBody.sender).toEqual(testData.sender);
                 expect(resBody.receiver).toEqual(testData.receiver);

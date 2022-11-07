@@ -1,12 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
-export interface MailCreationAttributes {
-    sender: string;
-    receiver: string;
-    title: string;
-    message: string;
-}
-
 @Entity('mail')
 export class Mail {
     @PrimaryGeneratedColumn()

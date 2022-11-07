@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, DeleteResult } from "typeorm"
-import {Mail, MailCreationAttributes} from "./mail.entity";
+import {Mail} from "./mail.entity";
+import {MailDto} from "./mail.dto";
 
 @Injectable()
 export class MailService {
@@ -25,7 +26,7 @@ export class MailService {
         });
     }
 
-    async createMail(content: MailCreationAttributes): Promise<Mail> {
+    async createMail(content: MailDto): Promise<Mail> {
         // INSERT INTO mail (sender, receiver, title, message) VALUES (content.sender, content.receiver, content.title, content.message)
         return await this.MailRepo.save(content);
     }

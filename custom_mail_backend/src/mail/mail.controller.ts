@@ -1,7 +1,8 @@
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import {MailService} from "./mail.service";
-import {Mail, MailCreationAttributes} from "./mail.entity";
+import {Mail} from "./mail.entity";
 import {DeleteResult} from "typeorm";
+import {MailDto} from "./mail.dto";
 
 @Controller('mail')
 export class MailController {
@@ -23,9 +24,10 @@ export class MailController {
         return await this.MailService.getByIndex(id);
     }
 
+    @UsePipes(new ValidationPipe())
     @Post('/create')
     async createMessage(
-        @Body() mail: MailCreationAttributes
+        @Body() mail: MailDto
     ): Promise<Mail> {
         return await this.MailService.createMail(mail);
     }
