@@ -62,6 +62,22 @@
             />
           </template>
         </q-input>
+        <q-file
+          v-model="file"
+          label="Если нужно прикрепить файл"
+          class="q-my-sm"
+        >
+          <template #prepend>
+            <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
+          </template>
+          <template #append>
+            <q-icon name="close" @click.stop.prevent="file = null" class="cursor-pointer"></q-icon>
+          </template>
+
+          <template v-slot:hint>
+            Field hint
+          </template>
+        </q-file>
         <q-editor v-model="newMessageData.message"></q-editor>
         <div
           class="q-mt-md full-width row justify-between items-center content-center"
@@ -105,13 +121,14 @@ export default defineComponent({
       title: '',
       message: '',
     } as CreateMailInterface);
+    const file = ref(null);
 
     const sendToDeferred = () =>
       deferredStore.pushDeferred(newMessageData.value);
 
     const sendNewMail = () => backend.mail.sendNewMessage(newMessageData.value);
 
-    return { deferredStore, newMessageData, sendToDeferred, sendNewMail };
+    return { deferredStore, newMessageData, sendToDeferred, sendNewMail, file };
   },
 });
 </script>
