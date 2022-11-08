@@ -64,17 +64,21 @@
         </q-input>
         <q-file
           v-model="file"
-          label="Если нужно прикрепить файл"
           class="q-my-sm"
+          label="Если нужно прикрепить файл"
         >
           <template #prepend>
             <q-icon name="cloud_upload" @click.stop.prevent></q-icon>
           </template>
           <template #append>
-            <q-icon name="close" @click.stop.prevent="file = null" class="cursor-pointer"></q-icon>
+            <q-icon
+              v-if="file !== null"
+              name="close"
+              class="cursor-pointer"
+              @click.stop.prevent="file = null"
+            />
           </template>
-
-          <template v-slot:hint>
+          <template #hint>
             Field hint
           </template>
         </q-file>
@@ -110,11 +114,13 @@ import { defineComponent, ref } from 'vue';
 import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
+import {useSentStore} from "stores/sent.store";
 
 export default defineComponent({
   name: 'CreateNewMessage',
   setup() {
     const deferredStore = useDeferredStore();
+    const sentStore = useSentStore();
     const newMessageData = ref({
       sender: '',
       receiver: '',
@@ -126,7 +132,10 @@ export default defineComponent({
     const sendToDeferred = () =>
       deferredStore.pushDeferred(newMessageData.value);
 
-    const sendNewMail = () => backend.mail.sendNewMessage(newMessageData.value);
+    const sendNewMail = () => {
+      sentStore.pushSent(newMessageData.value);
+      backend.mail.sendNewMessage(newMessageData.value)
+    };
 
     return { deferredStore, newMessageData, sendToDeferred, sendNewMail, file };
   },

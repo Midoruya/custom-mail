@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia';
-import { MailInterface } from 'src/interfaces/mail.interface';
+import { CreateMailInterface } from 'src/interfaces/mail.interface';
 
 export const useSentStore = defineStore({
   id: 'sentStore',
   state: () => ({
-    sent: [] as Array<MailInterface>,
+    sent: [] as Array<CreateMailInterface>,
   }),
   getters: {},
   actions: {
-    pushSent(sent: MailInterface): void {
+    pushSent(sent: CreateMailInterface): void {
       this.sent.push(sent);
     },
   },

@@ -60,7 +60,10 @@ export default defineComponent({
 
     const openMessage = () => router.push({ path: '/message/' + props.index });
 
-    const pushToSent = () => deferredStore.sendDeferred(props.index);
+    const pushToSent = () => {
+      sentStore.pushSent(deferredStore.deferred[props.index]);
+      deferredStore.sendDeferred(props.index);
+    }
 
     return {
       inboxStore,
