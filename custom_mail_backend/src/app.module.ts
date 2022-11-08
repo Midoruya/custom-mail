@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { MailModule } from './mail/mail.module';
+import {UserModule} from "./user/user.module";
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { MailModule } from './mail/mail.module';
           synchronize: true,
       }),
       MailModule,
+      UserModule,
   ],
   controllers: [],
   providers: [],
