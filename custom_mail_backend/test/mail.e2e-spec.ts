@@ -33,7 +33,6 @@ describe('MailController (e2e)', () => {
             .send(testData)
             .expect(201)
             .expect(res => {
-                console.log(res.body);
                 const resBody = res.body as Mail;
                 expect(resBody.sender).toEqual(testData.sender);
                 expect(resBody.receiver).toEqual(testData.receiver);
