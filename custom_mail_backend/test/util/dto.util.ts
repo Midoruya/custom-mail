@@ -12,13 +12,24 @@ export async function getError(DtoClass: any, DtoBody: any, property: string): P
     }
 }
 
+export function MinLength(DtoClass: any, DtoBody: any, property: string, length: number ) {
+    it("< min length", async () => {
+        DtoBody[property] = "a".repeat(length - 1);
+        const errors = await getError(DtoClass, DtoBody, property);
+        expect(errors).toContain("minLength");
+    });
+    it(">= min length", async () => {
+        DtoBody[property] = "a".repeat(length + 1);
+        const errors = await getError(DtoClass, DtoBody, property);
+        expect(errors).not.toContain("minLength");
+    })
+}
+
 export function IsNotEmpty(DtoClass: any, DtoBody: any, property: string) {
     it("is empty", async () => {
-        console.log(DtoBody);
         expect(await getError(DtoClass, DtoBody, property)).toContain("isNotEmpty");
     });
     it("is not empty", async () => {
-        console.log(DtoBody);
         DtoBody[property] = "test";
         expect(await getError(DtoClass, DtoBody, property)).not.toContain("isNotEmpty");
     });
@@ -26,7 +37,6 @@ export function IsNotEmpty(DtoClass: any, DtoBody: any, property: string) {
 
 export function IsEmail(DtoClass: any, DtoBody: any, property: string){
     it("is not an email", async () => {
-        console.log(DtoBody);
         DtoBody[property] = "not an email";
         const error = await getError(DtoClass, DtoBody, property);
         expect(error).toContain("isEmail");
