@@ -21,7 +21,7 @@ Backend на nest js ( swagger, typeorm, sqlite, class-validator, class-transfor
 
 
 ```
-Использовались следующие библиотеки:
+Использовались следующие библиотеки:  
 ![Quasar](https://quasar.dev/) - фреймворк для разработки приложений на vue js  
 ![Pinia](https://pinia.esm.dev/) для управления состоянием.  
 ![Vue Router](https://router.vuejs.org/) для роутинга.  
@@ -51,7 +51,7 @@ Swagger доступен только в режиме разработки.
 Доступен по адресу http://localhost:3000/
 
 ```
-Использовались следующие библиотеки:
+Использовались следующие библиотеки:  
 ![Nest](https://nestjs.com/) для создания сервера.  
 ![TypeORM](https://typeorm.io/#/) для работы с базой данных.  
 ![Class Validator](https://www.npmjs.com/package/@nestjs/class-validator/v/0.13.1) для валидации данных.  
