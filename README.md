@@ -20,13 +20,13 @@ Backend на nest js ( swagger, typeorm, sqlite, class-validator, class-transfor
 5. Страница со списком отложенных сообщений
 
 
-Использовались следующие библиотеки:
-[Quasar](https://quasar.dev/)
-[Pinia](https://pinia.esm.dev/) для управления состоянием.
-[Vue Router](https://router.vuejs.org/) для роутинга.
-[Vue Axios](https://www.npmjs.com/package/vue-axios) для запросов к backend.
-[Typescript](https://www.typescriptlang.org/) для типизации кода.
 ```
+Использовались следующие библиотеки:
+![Quasar](https://quasar.dev/) - фреймворк для разработки приложений на vue js  
+![Pinia](https://pinia.esm.dev/) для управления состоянием.  
+![Vue Router](https://router.vuejs.org/) для роутинга.  
+![Vue Axios](https://www.npmjs.com/package/vue-axios) для запросов к backend.  
+![Typescript](https://www.typescriptlang.org/) для типизации кода.  
 
 ### Запуск
 
@@ -50,14 +50,14 @@ Backend имеет следующие модули:
 Swagger доступен только в режиме разработки.
 Доступен по адресу http://localhost:3000/
 
-Использовались следующие библиотеки:
-[Nest](https://nestjs.com/)
-[TypeORM](https://typeorm.io/#/)
-[Class Validator](https://www.npmjs.com/package/@nestjs/class-validator/v/0.13.1)
-[Class Transformer](https://www.npmjs.com/package/class-transformer)
-[Swagger](https://www.npmjs.com/package/@nestjs/swagger)
-[Typescript](https://www.typescriptlang.org/)
 ```
+Использовались следующие библиотеки:
+![Nest](https://nestjs.com/) для создания сервера.  
+![TypeORM](https://typeorm.io/#/) для работы с базой данных.  
+![Class Validator](https://www.npmjs.com/package/@nestjs/class-validator/v/0.13.1) для валидации данных.  
+![Class Transformer](https://www.npmjs.com/package/class-transformer) для преобразования данных.  
+![Swagger](https://www.npmjs.com/package/@nestjs/swagger) для документации API.  
+![Typescript](https://www.typescriptlang.org/) для типизации кода.  
 
 ### Запуск
 
