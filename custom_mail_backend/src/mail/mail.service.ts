@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, DeleteResult } from "typeorm"
 import {Mail} from "./mail.entity";
@@ -19,11 +19,9 @@ export class MailService {
 
     async getByIndex(index: number): Promise<Mail> {
         // SELECT * FROM mail where id = { id }
-        return await this.MailRepo.findOne({
-            where : {
-                id: index
-            }
-        });
+        const getMail = await this.MailRepo.findOne({where: {id: index}});
+        if (getMail == null) throw new NotFoundException("Mail not found");
+        return getMail;
     }
 
     async createMail(content: MailDto): Promise<Mail> {
@@ -33,6 +31,8 @@ export class MailService {
 
     async deleteMail(id: number): Promise<DeleteResult> {
         // DELETE FROM mail WHERE id = { id }
-        return await this.MailRepo.delete(id);
+        const deleteMail = await this.MailRepo.delete(id);
+        if (deleteMail.affected == 0) throw new NotFoundException("Mail not found");
+        return deleteMail;
     }
 }

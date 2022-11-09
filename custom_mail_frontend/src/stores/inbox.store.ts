@@ -32,7 +32,7 @@ export const useInboxStore = defineStore({
     removeInboxByIndex(index: number): void {
       backend.mail
         .removeMailByIndex(this.inbox[index].id)
-        .then((_) => this.fetchInbox())
+        .then(() => this.fetchInbox())
         .catch((reason) => alert(reason));
     },
     fetchInbox(): void {

@@ -3,7 +3,9 @@ import {MailService} from "./mail.service";
 import {Mail} from "./mail.entity";
 import {DeleteResult} from "typeorm";
 import {MailDto} from "./mail.dto";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('mail')
 @Controller('mail')
 export class MailController {
 

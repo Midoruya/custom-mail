@@ -27,14 +27,14 @@
         <q-item-section top side>
           <div class="text-grey-8 q-gutter-xs">
             <q-btn
+              v-if="isDeferred"
               class="gt-xs"
               size="12px"
-              v-if="isDeferred"
-              @click="sendNewMail()"
               flat
               dense
               round
               icon="send"
+              @click="sendNewMail()"
             ></q-btn>
             <q-btn
               class="gt-xs"
@@ -60,7 +60,11 @@ import { useRoute } from 'vue-router';
 import { useInboxStore } from 'stores/inbox.store';
 import { useSentStore } from 'stores/sent.store';
 import { useDeferredStore } from 'stores/defered.store';
-import backend from "src/backend";
+import backend from 'src/backend';
+import {
+  CreateMailInterface,
+  MailInterface,
+} from 'src/interfaces/mail.interface';
 
 export default defineComponent({
   name: 'SelectedMessagePage',
@@ -72,7 +76,7 @@ export default defineComponent({
     const messageIndex = parseInt(currentRouter.params.id as string);
     const messageType = currentRouter.params.type;
 
-    let resultMessageData: any;
+    let resultMessageData: MailInterface | CreateMailInterface;
 
     switch (messageType) {
       case 'inbox':
@@ -93,14 +97,18 @@ export default defineComponent({
       deferredStore.removeDeferredByIndex(messageIndex);
       sentStore.pushSent(resultMessageData);
       backend.mail.sendNewMessage(resultMessageData);
-
     };
 
     const isDeferred = computed((): boolean => messageType === 'deferred');
 
     const getSelectedMessage = resultMessageData;
     const getSelectedMessageData = computed(() => getSelectedMessage.message);
-    return { getSelectedMessage, getSelectedMessageData, isDeferred, sendNewMail };
+    return {
+      getSelectedMessage,
+      getSelectedMessageData,
+      isDeferred,
+      sendNewMail,
+    };
   },
 });
 </script>

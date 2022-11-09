@@ -21,7 +21,7 @@ export const useDeferredStore = defineStore({
     sendDeferred(index: number): void {
       backend.mail
         .sendNewMessage(this.deferred[index])
-        .then((_) => this.removeDeferredByIndex(index))
+        .then(() => this.removeDeferredByIndex(index))
         .catch((reason) => alert(reason));
     },
     removeDeferredByIndex(index: number): void {

@@ -113,7 +113,7 @@ import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
 import { useSentStore } from 'stores/sent.store';
-import {useRouter} from "vue-router";
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'CreateNewMessage',
