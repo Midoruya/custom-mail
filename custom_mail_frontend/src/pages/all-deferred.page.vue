@@ -7,15 +7,15 @@
         :index="index"
         :title="message.title"
         :mail-sender="message.sender"
-        :is-deferred="true"
+        is-deferred
       />
     </q-list>
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
-import { useDeferredStore } from '../stores/defered.store';
+import { useDeferredStore } from 'stores/defered.store';
 import CollapsesMessage from '../components/collapses-message.componens.vue';
 
 export default defineComponent({

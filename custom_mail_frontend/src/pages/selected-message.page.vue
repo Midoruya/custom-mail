@@ -14,7 +14,7 @@
         <q-item-section top>
           <q-item-label lines="1">
             <span class="text-weight-medium">{{
-              getSelectedMessage.receiver
+              getSelectedMessage.sender
             }}</span>
             <span class="text-grey-8"> - от кого</span>
           </q-item-label>
@@ -26,6 +26,16 @@
 
         <q-item-section top side>
           <div class="text-grey-8 q-gutter-xs">
+            <q-btn
+              class="gt-xs"
+              size="12px"
+              v-if="isDeferred"
+              @click="sendNewMail()"
+              flat
+              dense
+              round
+              icon="send"
+            ></q-btn>
             <q-btn
               class="gt-xs"
               size="12px"
@@ -44,22 +54,53 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import { useInboxStore } from '../stores/inbox.store';
+import { useInboxStore } from 'stores/inbox.store';
+import { useSentStore } from 'stores/sent.store';
+import { useDeferredStore } from 'stores/defered.store';
+import backend from "src/backend";
 
 export default defineComponent({
   name: 'SelectedMessagePage',
   setup() {
     const currentRouter = useRoute();
-    const messageIndex = currentRouter.params.id;
-
+    const sentStore = useSentStore();
+    const deferredStore = useDeferredStore();
     const inboxStore = useInboxStore();
+    const messageIndex = parseInt(currentRouter.params.id as string);
+    const messageType = currentRouter.params.type;
 
-    const getSelectedMessage = inboxStore.inbox[messageIndex];
+    let resultMessageData: any;
+
+    switch (messageType) {
+      case 'inbox':
+        resultMessageData = inboxStore.inbox[messageIndex];
+        break;
+      case 'sent':
+        resultMessageData = sentStore.sent[messageIndex];
+        break;
+      case 'deferred':
+        resultMessageData = deferredStore.deferred[messageIndex];
+        break;
+      default:
+        resultMessageData = inboxStore.inbox[messageIndex];
+        break;
+    }
+
+    const sendNewMail = () => {
+      deferredStore.removeDeferredByIndex(messageIndex);
+      sentStore.pushSent(resultMessageData);
+      backend.mail.sendNewMessage(resultMessageData);
+
+    };
+
+    const isDeferred = computed((): boolean => messageType === 'deferred');
+
+    const getSelectedMessage = resultMessageData;
     const getSelectedMessageData = computed(() => getSelectedMessage.message);
-    return { getSelectedMessage, getSelectedMessageData };
+    return { getSelectedMessage, getSelectedMessageData, isDeferred, sendNewMail };
   },
 });
 </script>

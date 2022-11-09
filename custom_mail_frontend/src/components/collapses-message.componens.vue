@@ -12,7 +12,7 @@
       <q-item-label lines="1">{{ title }}</q-item-label>
     </q-item-section>
     <q-item-section avatar>
-      <q-icon name="delete" @click="inboxStore.removeInboxByIndex(index)" />
+      <q-icon name="delete" @click="removeMessage(index)" />
     </q-item-section>
     <q-item-section v-if="isDeferred" avatar>
       <q-icon name="send" @click="pushToSent()" />
@@ -42,10 +42,9 @@ export default defineComponent({
       type: String,
       default: 'Message',
     },
-    isDeferred: {
-      type: Boolean,
-      default: false,
-    },
+    isDeferred: Boolean,
+    isInbox: Boolean,
+    isSent: Boolean,
   },
   setup(props) {
     const router = useRouter();
@@ -54,16 +53,35 @@ export default defineComponent({
     const sentStore = useSentStore();
 
     function removeMessage(index: number) {
-      if (props.isDeferred) deferredStore.removeDeferredByIndex(index);
-      else inboxStore.removeInboxByIndex(index);
+      if (props.isInbox) {
+        inboxStore.removeInboxByIndex(index);
+      } else if (props.isSent) {
+        sentStore.removeSentByIndex(index);
+      } else if (props.isDeferred) {
+        deferredStore.removeDeferredByIndex(index);
+      } else {
+        console.log('Error: unknown message type');
+      }
     }
 
-    const openMessage = () => router.push({ path: '/message/' + props.index });
+    const openMessage = () => {
+      let messageType = '';
+      if (props.isInbox) {
+        messageType = 'inbox';
+      } else if (props.isSent) {
+        messageType = 'sent';
+      } else if (props.isDeferred) {
+        messageType = 'deferred';
+      } else {
+        console.log('Error: unknown message type');
+      }
+      router.push(`/message/${messageType}/${props.index}`);
+    };
 
     const pushToSent = () => {
       sentStore.pushSent(deferredStore.deferred[props.index]);
       deferredStore.sendDeferred(props.index);
-    }
+    };
 
     return {
       inboxStore,
@@ -74,7 +92,6 @@ export default defineComponent({
       pushToSent,
     };
   },
-  methods: {},
 });
 </script>
 

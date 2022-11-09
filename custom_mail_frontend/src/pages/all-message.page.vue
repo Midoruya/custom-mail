@@ -29,6 +29,7 @@
         :index="index"
         :title="message.title"
         :mail-sender="message.sender"
+        is-inbox
       />
     </q-list>
   </q-page>
@@ -46,10 +47,7 @@ export default defineComponent({
     const inputData = ref('');
     const inboxStore = useInboxStore();
     inboxStore.fetchInbox();
-    watch(
-      inputData,
-      (inputData) => (inboxStore.searchBy = inputData)
-    );
+    watch(inputData, (inputData) => (inboxStore.searchBy = inputData));
     return { inboxStore, inputData };
   },
 });

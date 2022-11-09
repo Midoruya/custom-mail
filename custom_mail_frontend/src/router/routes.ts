@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/create-new-message.page.vue'),
       },
       {
-        path: '/message/:id',
+        path: '/message/:type/:id',
         component: () => import('pages/selected-message.page.vue'),
       },
     ],

@@ -38,35 +38,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import NavigationPaneData from 'src/data/navigation-panel.data';
 import NavigationButton from 'components/navigation-button.componens.vue';
 import { useInboxStore } from 'stores/inbox.store';
 
 export default defineComponent({
   name: 'MainLayout',
-  setup() {
-    const inboxStore = useInboxStore();
-    return { inboxStore };
-  },
   components: {
     NavigationButton,
   },
-  data() {
-    return {
-      showDriver: true,
-      driverData: NavigationPaneData,
-      collapseDriverState: false,
-    };
-  },
-  methods: {
-    changeCollapseDriverState(
+  setup() {
+    const inboxStore = useInboxStore();
+
+    const showDriver = ref(true);
+    const collapseDriverState = ref(false);
+    const driverData = NavigationPaneData;
+
+    const changeCollapseDriverState = (
       useCustomState = false,
       customState = false
-    ): void {
-      if (!useCustomState) this.collapseDriverState = !this.collapseDriverState;
-      else this.collapseDriverState = customState;
-    },
+    ): void => {
+      if (!useCustomState)
+        collapseDriverState.value = !collapseDriverState.value;
+      else collapseDriverState.value = customState;
+    };
+
+    return {
+      inboxStore,
+      showDriver,
+      collapseDriverState,
+      driverData,
+      changeCollapseDriverState,
+    };
   },
 });
 </script>

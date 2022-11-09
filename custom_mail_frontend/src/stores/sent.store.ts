@@ -11,5 +11,8 @@ export const useSentStore = defineStore({
     pushSent(sent: CreateMailInterface): void {
       this.sent.push(sent);
     },
+    removeSentByIndex(index: number): void {
+      this.sent.splice(index, 1);
+    },
   },
 });

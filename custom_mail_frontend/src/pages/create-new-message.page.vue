@@ -78,9 +78,7 @@
               @click.stop.prevent="file = null"
             />
           </template>
-          <template #hint>
-            Field hint
-          </template>
+          <template #hint> Field hint </template>
         </q-file>
         <q-editor v-model="newMessageData.message"></q-editor>
         <div
@@ -114,11 +112,13 @@ import { defineComponent, ref } from 'vue';
 import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
-import {useSentStore} from "stores/sent.store";
+import { useSentStore } from 'stores/sent.store';
+import {useRouter} from "vue-router";
 
 export default defineComponent({
   name: 'CreateNewMessage',
   setup() {
+    const router = useRouter();
     const deferredStore = useDeferredStore();
     const sentStore = useSentStore();
     const newMessageData = ref({
@@ -129,12 +129,15 @@ export default defineComponent({
     } as CreateMailInterface);
     const file = ref(null);
 
-    const sendToDeferred = () =>
+    const sendToDeferred = () => {
       deferredStore.pushDeferred(newMessageData.value);
+      router.push('/deferred');
+    };
 
     const sendNewMail = () => {
       sentStore.pushSent(newMessageData.value);
-      backend.mail.sendNewMessage(newMessageData.value)
+      backend.mail.sendNewMessage(newMessageData.value);
+      router.push('/sent');
     };
 
     return { deferredStore, newMessageData, sendToDeferred, sendNewMail, file };
