@@ -1,9 +1,5 @@
 <template>
-  <q-item
-    v-ripple
-    clickable
-    class="q-my-xs q-mx-md rounded-borders bg-grey-3"
-  >
+  <q-item v-ripple clickable class="q-my-xs q-mx-md rounded-borders bg-grey-3">
     <q-item-section style="max-width: 300px">
       <q-item-label lines="1">{{ mailSender }}</q-item-label>
     </q-item-section>

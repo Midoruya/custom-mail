@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
-import {
-  MailInterface,
-} from 'src/interfaces/mail.interface';
+import { MailInterface } from 'src/interfaces/mail.interface';
 import backend from 'src/backend';
 
 export const useSentStore = defineStore({

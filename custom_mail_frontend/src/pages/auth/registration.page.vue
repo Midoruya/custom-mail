@@ -1,8 +1,5 @@
 <template>
-  <q-form
-    class="q-gutter-md"
-    @submit="onSubmit"
-  >
+  <q-form class="q-gutter-md" @submit="onSubmit">
     <div class="text-h6">Регистрация</div>
     <q-input
       v-model="email"

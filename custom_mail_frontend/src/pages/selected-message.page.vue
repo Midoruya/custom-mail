@@ -7,15 +7,20 @@
       class="rounded-borders col rounded-borders bg-grey-3 q-pa-lg"
       style="max-width: 1200px"
     >
-      <q-item-label class="text-h6 q-my-sm">{{
-        getSelectedMessage.title
-      }}</q-item-label>
+      <q-item>
+        <q-item-section top>
+          <q-item-label class="text-h6 q-my-sm" lines="1">
+            {{ getSelectedMessage.title }}
+          </q-item-label>
+        </q-item-section>
+        <q-item-section avatar>
+          <q-btn class="q-ml-sm" flat round dense icon="close" to="/" />
+        </q-item-section>
+      </q-item>
       <q-item>
         <q-item-section top>
           <q-item-label lines="1">
-            <span class="text-weight-medium">{{
-                userStore.email
-            }}</span>
+            <span class="text-weight-medium">{{ userStore.email }}</span>
             <span class="text-grey-8"> - от кого</span>
           </q-item-label>
           <q-item-label caption lines="1">
@@ -65,7 +70,7 @@ import {
   CreateMailInterface,
   MailInterface,
 } from 'src/interfaces/mail.interface';
-import {useUserStore} from "stores/user.store";
+import { useUserStore } from 'stores/user.store';
 
 export default defineComponent({
   name: 'SelectedMessagePage',
@@ -95,7 +100,7 @@ export default defineComponent({
         break;
     }
 
-    console.log(resultMessageData)
+    console.log(resultMessageData);
 
     const sendNewMail = () => {
       deferredStore.removeDeferredByIndex(messageIndex);

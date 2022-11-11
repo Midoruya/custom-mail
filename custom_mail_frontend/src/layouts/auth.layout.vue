@@ -5,7 +5,7 @@
       style="height: 100vh"
     >
       <div
-        class="rounded-borders  col rounded-borders bg-grey-3 q-pa-lg"
+        class="rounded-borders col rounded-borders bg-grey-3 q-pa-lg"
         style="max-width: 900px"
       >
         <q-page-container>

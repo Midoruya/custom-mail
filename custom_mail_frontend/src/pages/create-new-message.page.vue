@@ -7,7 +7,16 @@
       class="rounded-borders col rounded-borders bg-grey-3 q-pa-lg"
       style="max-width: 900px"
     >
-      <h6 class="text-h6" style="margin: 0">Создань новое письмо</h6>
+      <q-item>
+        <q-item-section top>
+          <q-item-label class="text-h6 q-my-sm" lines="1">
+            Создань новое письмо
+          </q-item-label>
+        </q-item-section>
+        <q-item-section avatar>
+          <q-btn class="q-ml-sm" flat round dense icon="close" to="/" />
+        </q-item-section>
+      </q-item>
       <q-form>
         <q-input
           v-model="newMessageData.receiver"
@@ -66,23 +75,19 @@
         <div
           class="q-mt-md full-width row justify-between items-center content-center"
         >
-          <div>
-            <q-btn
-              style="width: 200px"
-              color="primary"
-              label="В отложеные"
-              @click="sendToDeferred()"
-            />
-            <q-btn
-              style="width: 200px"
-              type="submit"
-              class="q-ml-sm"
-              color="primary"
-              label="Отправить"
-              @click="sendNewMail()"
-            />
-          </div>
-          <q-btn style="width: 200px" color="primary" label="На главную" />
+          <q-btn
+            style="width: 270px"
+            color="primary"
+            label="В отложеные"
+            @click="sendToDeferred()"
+          />
+          <q-btn
+            style="width: 270px"
+            type="submit"
+            color="primary"
+            label="Отправить"
+            @click="sendNewMail()"
+          />
         </div>
       </q-form>
     </div>

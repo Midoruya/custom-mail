@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onUnmounted, ref, watch} from 'vue';
+import { defineComponent, onUnmounted, ref, watch } from 'vue';
 import { useInboxStore } from 'stores/inbox.store';
 import CollapsesMessage from 'components/collapses-message.componens.vue';
 

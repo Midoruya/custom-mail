@@ -2,6 +2,7 @@
   <q-layout view="lhh lpr fff">
     <q-drawer
       v-model="showDriver"
+      :width="200"
       :mini="collapseDriverState"
       :behavior="'desktop'"
       show-if-above
