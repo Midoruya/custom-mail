@@ -6,7 +6,7 @@
         :key="message.message"
         :index="index"
         :title="message.title"
-        :mail-sender="message.sender"
+        :mail-sender="message.receiver"
         is-sent
       />
     </q-list>
@@ -23,6 +23,7 @@ export default defineComponent({
   components: { CollapsesMessage },
   setup() {
     const sentStore = useSentStore();
+    sentStore.fetchSent();
     return { sentStore };
   },
 });

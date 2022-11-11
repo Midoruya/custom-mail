@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import {defineComponent, onUnmounted, ref, watch} from 'vue';
 import { useInboxStore } from 'stores/inbox.store';
 import CollapsesMessage from 'components/collapses-message.componens.vue';
 
@@ -47,6 +47,15 @@ export default defineComponent({
     const inputData = ref('');
     const inboxStore = useInboxStore();
     inboxStore.fetchInbox();
+
+    const interval = setInterval(() => {
+      inboxStore.fetchInbox();
+    }, 5000);
+
+    onUnmounted(() => {
+      clearInterval(interval);
+    });
+
     watch(inputData, (inputData) => (inboxStore.searchBy = inputData));
     return { inboxStore, inputData };
   },

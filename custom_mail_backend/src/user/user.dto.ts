@@ -14,3 +14,11 @@ export class UserDto {
     @MinLength(5)
     password: string;
 }
+
+export class UserInfoDto {
+    @ApiModelProperty()
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
+}

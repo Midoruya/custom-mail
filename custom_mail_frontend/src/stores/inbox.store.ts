@@ -33,13 +33,13 @@ export const useInboxStore = defineStore({
       backend.mail
         .removeMailByIndex(this.inbox[index].id)
         .then(() => this.fetchInbox())
-        .catch((reason) => alert(reason));
+        .catch((reason) => alert(reason.response.data.message));
     },
     fetchInbox(): void {
       backend.mail
         .getAllMessage()
         .then((data) => (this.inbox = data))
-        .catch((reason) => alert(reason));
+        .catch((reason) => alert(reason.response.data.message));
     },
   },
 });

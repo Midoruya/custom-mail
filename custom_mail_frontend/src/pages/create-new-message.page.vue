@@ -10,28 +10,10 @@
       <h6 class="text-h6" style="margin: 0">Создань новое письмо</h6>
       <q-form>
         <q-input
-          v-model="newMessageData.sender"
-          type="email"
-          clear-icon="close"
-          placeholder="кому"
-        >
-          <template #prepend>
-            <q-icon name="email" />
-          </template>
-          <template #append>
-            <q-icon
-              v-if="newMessageData.sender !== ''"
-              name="close"
-              @click="newMessageData.sender = ''"
-            />
-          </template>
-        </q-input>
-        <q-input
           v-model="newMessageData.receiver"
           type="email"
           clear-icon="close"
-          placeholder="от кого"
-          class="q-my-sm"
+          placeholder="кому"
         >
           <template #prepend>
             <q-icon name="email" />
@@ -112,7 +94,6 @@ import { defineComponent, ref } from 'vue';
 import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
-import { useSentStore } from 'stores/sent.store';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
@@ -120,9 +101,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const deferredStore = useDeferredStore();
-    const sentStore = useSentStore();
     const newMessageData = ref({
-      sender: '',
       receiver: '',
       title: '',
       message: '',
@@ -135,7 +114,6 @@ export default defineComponent({
     };
 
     const sendNewMail = () => {
-      sentStore.pushSent(newMessageData.value);
       backend.mail.sendNewMessage(newMessageData.value);
       router.push('/sent');
     };

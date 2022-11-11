@@ -3,13 +3,15 @@
     v-ripple
     clickable
     class="q-my-xs q-mx-md rounded-borders bg-grey-3"
-    @click="openMessage()"
   >
     <q-item-section style="max-width: 300px">
       <q-item-label lines="1">{{ mailSender }}</q-item-label>
     </q-item-section>
     <q-item-section>
       <q-item-label lines="1">{{ title }}</q-item-label>
+    </q-item-section>
+    <q-item-section avatar>
+      <q-icon name="message" @click="openMessage()" />
     </q-item-section>
     <q-item-section avatar>
       <q-icon name="delete" @click="removeMessage(index)" />
@@ -78,10 +80,7 @@ export default defineComponent({
       router.push(`/message/${messageType}/${props.index}`);
     };
 
-    const pushToSent = () => {
-      sentStore.pushSent(deferredStore.deferred[props.index]);
-      deferredStore.sendDeferred(props.index);
-    };
+    const pushToSent = () => deferredStore.sendDeferred(props.index);
 
     return {
       inboxStore,

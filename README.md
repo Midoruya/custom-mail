@@ -18,15 +18,16 @@ Backend на nest js ( swagger, typeorm, sqlite, class-validator, class-transfor
 3. Страница с информацией о выбранном сообщении
 4. Страница со списком отправленных сообщений
 5. Страница со списком отложенных сообщений
-
+6. Страница авторизации
+7. Страница регистрации
 
 ```
 Использовались следующие библиотеки:  
-![Quasar](https://quasar.dev/) - фреймворк для разработки приложений на vue js  
-![Pinia](https://pinia.esm.dev/) для управления состоянием.  
-![Vue Router](https://router.vuejs.org/) для роутинга.  
-![Vue Axios](https://www.npmjs.com/package/vue-axios) для запросов к backend.  
-![Typescript](https://www.typescriptlang.org/) для типизации кода.  
+[Quasar](https://quasar.dev/) - фреймворк для разработки приложений на vue js  
+[Pinia](https://pinia.esm.dev/) для управления состоянием.  
+[Vue Router](https://router.vuejs.org/) для роутинга.  
+[Vue Axios](https://www.npmjs.com/package/vue-axios) для запросов к backend.  
+[Typescript](https://www.typescriptlang.org/) для типизации кода.  
 
 ### Запуск
 
@@ -41,7 +42,7 @@ npm run debug
 ### Описание
 ```text
 Backend имеет следующие модули:
-- auth - модуль авторизации (не доделан на данный момент )
+- auth - модуль авторизации ( имеет swagger документацию )
 - mail - модуль отправки писем ( имеет swagger документацию )
 - user - модуль пользователей 
 
@@ -52,12 +53,13 @@ Swagger доступен только в режиме разработки.
 
 ```
 Использовались следующие библиотеки:  
-![Nest](https://nestjs.com/) для создания сервера.  
-![TypeORM](https://typeorm.io/#/) для работы с базой данных.  
-![Class Validator](https://www.npmjs.com/package/@nestjs/class-validator/v/0.13.1) для валидации данных.  
-![Class Transformer](https://www.npmjs.com/package/class-transformer) для преобразования данных.  
-![Swagger](https://www.npmjs.com/package/@nestjs/swagger) для документации API.  
-![Typescript](https://www.typescriptlang.org/) для типизации кода.  
+[Nest](https://nestjs.com/) для создания сервера.  
+[TypeORM](https://typeorm.io/#/) для работы с базой данных.  
+[Class Validator](https://www.npmjs.com/package/@nestjs/class-validator/v/0.13.1) для валидации данных.  
+[Class Transformer](https://www.npmjs.com/package/class-transformer) для преобразования данных.  
+[Swagger](https://www.npmjs.com/package/@nestjs/swagger) для документации API.  
+[Typescript](https://www.typescriptlang.org/) для типизации кода.  
+[JWT](https://www.npmjs.com/package/jsonwebtoken) для авторизации.
 
 ### Запуск
 

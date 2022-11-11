@@ -1,6 +1,6 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository, DeleteResult } from "typeorm"
+import {InjectRepository} from "@nestjs/typeorm";
+import {DeleteResult, Repository} from "typeorm"
 import {Mail} from "./mail.entity";
 import {MailDto} from "./mail.dto";
 
@@ -15,6 +15,16 @@ export class MailService {
     async getAll(): Promise<Array<Mail>> {
         // SELECT * FROM mail
         return await this.MailRepo.find();
+    }
+
+    async getInbox(email: string): Promise<Array<Mail>> {
+        // SELECT * FROM mail WHERE receiver = { email }
+        return await this.MailRepo.find({where: {receiver: email}});
+    }
+
+    async getSent(email: string): Promise<Array<Mail>> {
+        // SELECT * FROM mail WHERE sender = { email }
+        return await this.MailRepo.find({where: {sender: email}});
     }
 
     async getByIndex(index: number): Promise<Mail> {

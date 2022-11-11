@@ -14,7 +14,7 @@
         <q-item-section top>
           <q-item-label lines="1">
             <span class="text-weight-medium">{{
-              getSelectedMessage.sender
+                userStore.email
             }}</span>
             <span class="text-grey-8"> - от кого</span>
           </q-item-label>
@@ -65,11 +65,13 @@ import {
   CreateMailInterface,
   MailInterface,
 } from 'src/interfaces/mail.interface';
+import {useUserStore} from "stores/user.store";
 
 export default defineComponent({
   name: 'SelectedMessagePage',
   setup() {
     const currentRouter = useRoute();
+    const userStore = useUserStore();
     const sentStore = useSentStore();
     const deferredStore = useDeferredStore();
     const inboxStore = useInboxStore();
@@ -93,9 +95,10 @@ export default defineComponent({
         break;
     }
 
+    console.log(resultMessageData)
+
     const sendNewMail = () => {
       deferredStore.removeDeferredByIndex(messageIndex);
-      sentStore.pushSent(resultMessageData);
       backend.mail.sendNewMessage(resultMessageData);
     };
 
@@ -108,6 +111,7 @@ export default defineComponent({
       getSelectedMessageData,
       isDeferred,
       sendNewMail,
+      userStore,
     };
   },
 });
