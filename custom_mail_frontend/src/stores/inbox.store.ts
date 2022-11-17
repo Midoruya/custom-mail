@@ -6,7 +6,6 @@ export const useInboxStore = defineStore({
   id: 'inboxStore',
   state: () => ({
     inbox: [] as Array<MailInterface>,
-    searchBy: '' as string,
   }),
   getters: {
     // getById: ({inbox}) => (id: number): MailInterface => inbox[id],
@@ -15,18 +14,6 @@ export const useInboxStore = defineStore({
     }: {
       inbox: Array<MailInterface>;
     }): Array<MailInterface> => inbox,
-    searchInbox: ({
-      inbox,
-      searchBy,
-    }: {
-      inbox: Array<MailInterface>;
-      searchBy: string;
-    }): Array<MailInterface> => {
-      console.log('searchBy: ', searchBy);
-      return inbox.filter((item: MailInterface) => {
-        return item.title.toLowerCase().includes(searchBy.toLowerCase());
-      });
-    },
   },
   actions: {
     removeInboxByIndex(index: number): void {

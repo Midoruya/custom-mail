@@ -1,8 +1,30 @@
 <template>
   <q-page>
     <q-list>
+      <q-input
+        v-model="inputData"
+        class="q-pa-sm"
+        outlined
+        standout
+        borderless
+        rounded
+        type="text"
+        clear-icon="reload"
+      >
+        <template #append>
+          <q-icon
+            v-if="inputData !== ''"
+            name="close"
+            class="cursor-pointer"
+            @click="inputData = ''"
+          />
+        </template>
+        <template #prepend>
+          <q-icon name="search" />
+        </template>
+      </q-input>
       <CollapsesMessage
-        v-for="(message, index) in sentStore.sent"
+        v-for="(message, index) in sentData"
         :key="message.message"
         :index="index"
         :title="message.title"
@@ -13,20 +35,18 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { useSentStore } from 'stores/sent.store';
 import CollapsesMessage from '../components/collapses-message.componens.vue';
+import { computed, ref } from "vue";
 
-export default defineComponent({
-  name: 'AllSentPage',
-  components: { CollapsesMessage },
-  setup() {
-    const sentStore = useSentStore();
-    sentStore.fetchSent();
-    return { sentStore };
-  },
-});
+const sentStore = useSentStore();
+sentStore.fetchSent();
+
+const inputData = ref<string>('');
+
+const sentData = computed(() => sentStore.sent.filter((message) => message.title.toLowerCase().includes(inputData.value.toLowerCase())));
+
 </script>
 
 <style scoped></style>
