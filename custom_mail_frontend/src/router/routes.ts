@@ -1,9 +1,11 @@
 import { RouteRecordRaw } from 'vue-router';
+import { hasAlreadyAuth, isAuth } from 'src/router/middleware/auth.middleware';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/main.layout.vue'),
+    beforeEnter: hasAlreadyAuth,
     children: [
       { path: '/', component: () => import('pages/all-message.page.vue') },
       { path: '/inbox', component: () => import('pages/all-message.page.vue') },
@@ -25,6 +27,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/auth',
     component: () => import('layouts/auth.layout.vue'),
+    beforeEnter: isAuth,
     children: [
       {
         path: '',
