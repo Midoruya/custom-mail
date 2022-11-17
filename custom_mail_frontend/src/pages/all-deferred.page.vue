@@ -13,19 +13,11 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import { useDeferredStore } from 'stores/defered.store';
 import CollapsesMessage from '../components/collapses-message.componens.vue';
 
-export default defineComponent({
-  name: 'AllDeferredPage',
-  components: { CollapsesMessage },
-  setup() {
-    const deferredStore = useDeferredStore();
-    return { deferredStore };
-  },
-});
+const deferredStore = useDeferredStore();
 </script>
 
 <style scoped></style>

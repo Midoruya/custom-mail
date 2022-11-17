@@ -16,28 +16,21 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, onUnmounted } from 'vue';
+<script lang="ts" setup>
+import { onUnmounted } from 'vue';
 import { useUserStore } from 'stores/user.store';
 import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'AuthLayout',
-  components: {},
-  setup() {
-    const userStore = useUserStore();
-    const router = useRouter();
+const userStore = useUserStore();
+const router = useRouter();
 
-    const interval = setInterval(() => {
-      console.log(12331321321);
-      if (userStore.isAuth) router.push('/');
-    }, 1000);
+const interval = setInterval(() => {
+  console.log(12331321321);
+  if (userStore.isAuth) router.push('/');
+}, 1000);
 
-    onUnmounted(() => {
-      clearInterval(interval);
-    });
-
-    return {};
-  },
+onUnmounted(() => {
+  clearInterval(interval);
 });
+
 </script>

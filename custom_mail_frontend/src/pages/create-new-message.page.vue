@@ -94,38 +94,31 @@
   </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
 import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
 import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'CreateNewMessage',
-  setup() {
-    const router = useRouter();
-    const deferredStore = useDeferredStore();
-    const newMessageData = ref({
-      receiver: '',
-      title: '',
-      message: '',
-    } as CreateMailInterface);
-    const file = ref(null);
+const router = useRouter();
+const deferredStore = useDeferredStore();
+const newMessageData = ref({
+  receiver: '',
+  title: '',
+  message: '',
+} as CreateMailInterface);
+const file = ref(null);
 
-    const sendToDeferred = () => {
-      deferredStore.pushDeferred(newMessageData.value);
-      router.push('/deferred');
-    };
+const sendToDeferred = () => {
+  deferredStore.pushDeferred(newMessageData.value);
+  router.push('/deferred');
+};
 
-    const sendNewMail = () => {
-      backend.mail.sendNewMessage(newMessageData.value);
-      router.push('/sent');
-    };
+const sendNewMail = () => {
+  backend.mail.sendNewMessage(newMessageData.value);
+  router.push('/sent');
+};
 
-    return { deferredStore, newMessageData, sendToDeferred, sendNewMail, file };
-  },
-});
 </script>
 
 <style scoped></style>

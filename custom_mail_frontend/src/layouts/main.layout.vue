@@ -38,40 +38,22 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import NavigationPaneData from 'src/data/navigation-panel.data';
 import NavigationButton from 'components/navigation-button.componens.vue';
-import { useInboxStore } from 'stores/inbox.store';
 
-export default defineComponent({
-  name: 'MainLayout',
-  components: {
-    NavigationButton,
-  },
-  setup() {
-    const inboxStore = useInboxStore();
+const showDriver = ref(true);
+const collapseDriverState = ref(false);
+const driverData = NavigationPaneData;
 
-    const showDriver = ref(true);
-    const collapseDriverState = ref(false);
-    const driverData = NavigationPaneData;
+const changeCollapseDriverState = (
+  useCustomState = false,
+  customState = false
+): void => {
+  if (!useCustomState)
+    collapseDriverState.value = !collapseDriverState.value;
+  else collapseDriverState.value = customState;
+};
 
-    const changeCollapseDriverState = (
-      useCustomState = false,
-      customState = false
-    ): void => {
-      if (!useCustomState)
-        collapseDriverState.value = !collapseDriverState.value;
-      else collapseDriverState.value = customState;
-    };
-
-    return {
-      inboxStore,
-      showDriver,
-      collapseDriverState,
-      driverData,
-      changeCollapseDriverState,
-    };
-  },
-});
 </script>
