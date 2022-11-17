@@ -62,6 +62,7 @@ module.exports = {
   rules: {
     // 'prefer-promise-reject-errors': 'off',
     quotes: ['warn', 'single', { avoidEscape: true }],
+    'vue/multi-word-component-names': 'off',
     // this rule, if on, would require explicit return type on the `render` function
     '@typescript-eslint/explicit-function-return-type': 'off',
     // in plain CommonJS modules, you can't use `import foo = require('foo')` to pass this rule, so it has to be disabled

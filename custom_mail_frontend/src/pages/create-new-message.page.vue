@@ -99,6 +99,7 @@ import { useDeferredStore } from 'stores/defered.store';
 import backend from '../backend';
 import { CreateMailInterface } from '../interfaces/mail.interface';
 import { useRouter } from 'vue-router';
+import { ref } from "vue";
 
 const router = useRouter();
 const deferredStore = useDeferredStore();

@@ -46,7 +46,6 @@ sentStore.fetchSent();
 const inputData = ref<string>('');
 
 const sentData = computed(() => sentStore.sent.filter((message) => message.title.toLowerCase().includes(inputData.value.toLowerCase())));
-
 </script>
 
 <style scoped></style>
